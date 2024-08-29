@@ -21,6 +21,7 @@ export type AdminData = {
     totalDiscountAmount: number;
     discountCodesCreated: string[];
 };
+
 type DiscountCode = {
     type: "percentage" | "fixed";
     amount: number;

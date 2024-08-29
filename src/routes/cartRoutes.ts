@@ -9,5 +9,6 @@ const router = Router();
 router.get("/", cartController.listCart);
 router.post("/", validateRequest(addToCartSchema), cartController.addToCart);
 router.post("/checkout", cartController.checkoutCart);
+router.get("/discountCodes", cartController.fetchEligibleDiscountCodes);
 
 export default router;

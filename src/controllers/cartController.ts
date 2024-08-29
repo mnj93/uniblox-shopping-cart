@@ -28,8 +28,25 @@ const listCart = (req: Request, res: Response, next: NextFunction) => {
 
 const checkoutCart = (req: Request, res: Response, next: NextFunction) => {
     try {
-        cartService.processCheckout();
+        const { code = null } = req.body;
+        cartService.processCheckout(code);
         return res.status(200).json({ success: true, data: PURCHASED_ORDERS });
+    } catch (err: any) {
+        return res.status(400).json({
+            success: false,
+            message: err?.message || "Internal server error.",
+        });
+    }
+};
+
+const fetchEligibleDiscountCodes = (
+    req: Request,
+    res: Response,
+    next: NextFunction
+) => {
+    try {
+        const data = cartService.fetchEligibleDiscountCodes();
+        return res.status(200).json({ success: true, data });
     } catch (err: any) {
         return res.status(400).json({
             success: false,
@@ -42,4 +59,5 @@ export default {
     addToCart,
     listCart,
     checkoutCart,
+    fetchEligibleDiscountCodes,
 };

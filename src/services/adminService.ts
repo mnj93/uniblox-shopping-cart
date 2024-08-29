@@ -2,11 +2,11 @@ import { PURCHASED_ORDERS, DISCOUNT_CODES } from "../constants/inMemoryDb";
 import { GenerateCodeInput } from "../schemas/adminSchema";
 
 const fetchAdminData = () => {
-    let totalItemsPurchased = 0;
-    let totalPurchaseAmount = 0;
-    let totalDiscountAmount = 0;
-    let discountCodesUsed: string[] = [];
-    let discountCodesCreated: string[] = [];
+    let totalItemsPurchased = 0; // considering unique product purchase for each checkout
+    let totalPurchaseAmount = 0; // total sales volume including discount amount
+    let totalDiscountAmount = 0; // total discount amount given to user
+    let discountCodesUsed: string[] = []; // list of codes used by users
+    let discountCodesAvailable: string[] = Object.keys(DISCOUNT_CODES); // list of codes available for next orders
 
     PURCHASED_ORDERS.forEach((o) => {
         totalItemsPurchased += o.items.length;
@@ -20,7 +20,7 @@ const fetchAdminData = () => {
         totalPurchaseAmount,
         totalDiscountAmount,
         discountCodesUsed,
-        discountCodesCreated,
+        discountCodesAvailable,
     };
 };
 

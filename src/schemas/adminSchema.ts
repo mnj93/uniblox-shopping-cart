@@ -11,7 +11,7 @@ export const generateCodeSchema = z.object({
             message: "The code must be alphanumeric",
         }),
     type: z.enum(["percentage", "fixed"]),
-    amount: z.number().positive(),
+    amount: z.number().positive().max(100),
 });
 
 export type GenerateCodeInput = z.infer<typeof generateCodeSchema>;
