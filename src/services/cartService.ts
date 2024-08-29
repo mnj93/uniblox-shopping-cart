@@ -119,9 +119,7 @@ const calculateAndReturnDiscountAmount = (
 };
 
 const fetchEligibleDiscountCodes = () => {
-    const isEligibleOrder = checkEligibility();
-    if (isEligibleOrder) return Object.keys(DISCOUNT_CODES);
-    else return [];
+    return Object.keys(DISCOUNT_CODES);
 };
 
 export default {
