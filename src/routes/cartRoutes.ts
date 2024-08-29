@@ -1,10 +1,12 @@
 import { Router, Request, Response, NextFunction } from "express";
+import validateRequest from "../middlewares/validateRequestData";
+import { addToCartSchema } from "../schemas/cartSchemas";
+import cartController from "../controllers/cartController";
 
 const router = Router();
 
-router.get("/", (req: Request, res: Response, next: NextFunction) => {
-    console.log("Inside here");
-    return res.status(200).json({ "message": "Welcome to cart APIs" });
-});
+// all the cart routes goes here
+router.get("/", cartController.listCart);
+router.post("/", validateRequest(addToCartSchema), cartController.addToCart);
 
 export default router;

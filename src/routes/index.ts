@@ -4,6 +4,9 @@ import productRoutes from "./productRoutes";
 
 const router = Router();
 
+router.get("/", (req: Request, res: Response, next: NextFunction) => {
+    return res.status(200).json({ "message": "Welcome to cart APIs" });
+});
 router.use("/products", productRoutes);
 router.use("/cart", cartRoutes);
 
