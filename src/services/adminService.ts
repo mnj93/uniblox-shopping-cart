@@ -1,4 +1,5 @@
-import { PURCHASED_ORDERS } from "../constants/inMemoryDb";
+import { PURCHASED_ORDERS, DISCOUNT_CODES } from "../constants/inMemoryDb";
+import { GenerateCodeInput } from "../schemas/adminSchema";
 
 const fetchAdminData = () => {
     let totalItemsPurchased = 0;
@@ -23,4 +24,15 @@ const fetchAdminData = () => {
     };
 };
 
-export default { fetchAdminData };
+const generateDiscountCodes = (data: GenerateCodeInput) => {
+    console.log("data : ", data);
+    // check if discount code already exists
+    if (DISCOUNT_CODES[data.code])
+        throw new Error("This discount code is already added.");
+
+    DISCOUNT_CODES[data.code] = { type: data.type, amount: data.amount };
+    console.log(DISCOUNT_CODES);
+    return DISCOUNT_CODES;
+};
+
+export default { fetchAdminData, generateDiscountCodes };
