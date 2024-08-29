@@ -8,5 +8,6 @@ const router = Router();
 // all the cart routes goes here
 router.get("/", cartController.listCart);
 router.post("/", validateRequest(addToCartSchema), cartController.addToCart);
+router.post("/checkout", cartController.checkoutCart);
 
 export default router;
