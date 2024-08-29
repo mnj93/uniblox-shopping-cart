@@ -13,3 +13,11 @@ export type Order = {
     discountCode: string | null;
     items: CartItems;
 };
+
+export type AdminData = {
+    itemsPurchased: number;
+    totalPurchaseAmount: number;
+    discountCodesUsed: string[];
+    totalDiscountAmount: number;
+    discountCodesCreated: string[];
+};

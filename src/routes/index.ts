@@ -1,6 +1,7 @@
 import { Router, Request, Response, NextFunction } from "express";
 import cartRoutes from "./cartRoutes";
 import productRoutes from "./productRoutes";
+import adminRoutes from "./adminRoutes";
 
 const router = Router();
 
@@ -9,6 +10,7 @@ router.get("/", (req: Request, res: Response, next: NextFunction) => {
 });
 router.use("/products", productRoutes);
 router.use("/cart", cartRoutes);
+router.use("/admin", adminRoutes);
 
 // return 404 not found for all other routes
 router.use("/*", (req: Request, res: Response, next: NextFunction) => {
