@@ -64,7 +64,7 @@ describe("listOrders", () => {
 
     it("should return 200 and the list of purchased orders", () => {
         listOrders(req as Request, res as Response, next as NextFunction);
-        console.log("PURCHASED_ORDERS : ", PURCHASED_ORDERS);
+        // console.log("PURCHASED_ORDERS : ", PURCHASED_ORDERS);
         expect(statusMock).toHaveBeenCalledWith(200);
         expect(jsonMock).toHaveBeenCalledWith({
             success: true,
