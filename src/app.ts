@@ -1,9 +1,16 @@
 import express from "express";
 import routes from "./routes";
 import * as dotenv from "dotenv";
-dotenv.config();
+import YAML from "yamljs";
+import swaggerUi from "swagger-ui-express";
 
+dotenv.config();
 const app = express();
+
+// Load the YAML file
+const swaggerDocument = YAML.load("./swagger.yaml");
+// Swagger setup
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 // middlewares
 app.use(express.json());

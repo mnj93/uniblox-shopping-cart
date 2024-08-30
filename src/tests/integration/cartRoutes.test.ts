@@ -198,7 +198,6 @@ describe("POST /cart", () => {
             .send(requestBody)
             .expect("Content-Type", /json/);
 
-        console.log("response.body.message : ", response.body.message);
 
         expect(response.status).toBe(400);
         expect(response.body.success).toBe(false);

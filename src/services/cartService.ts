@@ -17,7 +17,7 @@ const processAddToCart = (data: AddToCardInput) => {
     const product = validateProductId(data);
     // if cart is empty then directly push the item
     if (!CART.length) {
-        console.log("CART is empty : ", data);
+        // console.log("CART is empty : ", data);
         CART.push({ ...data, price: product.price });
         return;
     }
@@ -32,7 +32,6 @@ const processAddToCart = (data: AddToCardInput) => {
     });
 
     if (existingItem) return;
-    console.log("product : ", product);
     // item dont exist in cart push directly
     CART.push({ ...data, price: product.price });
 

@@ -62,7 +62,6 @@ describe("fetchAdminData Service", () => {
 
     it("should correctly populate discountCodesUsed with the discount codes used in the orders", () => {
         const result = fetchAdminData();
-        console.log("result : ", result);
         expect(result.discountCodesUsed).toEqual(["DUMMY100"]);
     });
 

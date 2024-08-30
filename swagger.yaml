@@ -1,0 +1,461 @@
+openapi: 3.0.0
+info:
+  title: Product API
+  version: 1.0.0
+  description: API documentation for the Product endpoints.
+
+servers:
+  - url: http://localhost:3000
+
+paths:
+  /api/products:
+    get:
+      summary: Retrieve a list of products
+      tags:
+        - Products
+      responses:
+        200:
+          description: A list of products.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                          example: 1
+                        title:
+                          type: string
+                          example: Essence Mascara Lash Princess
+                        brand:
+                          type: string
+                          example: Essence
+                        category:
+                          type: string
+                          example: beauty
+                        description:
+                          type: string
+                          example: The Essence Mascara Lash Princess is a popular mascara known for its volumizing and lengthening effects. Achieve dramatic lashes with this long-lasting and cruelty-free formula.
+                        price:
+                          type: number
+                          format: float
+                          example: 10.0
+                        sku:
+                          type: string
+                          example: RCH45Q1A
+                        thumbnail:
+                          type: string
+                          format: url
+                          example: https://cdn.dummyjson.com/products/images/beauty/Essence%20Mascara%20Lash%20Princess/thumbnail.png
+        400:
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: Bad request.
+  /api/admin/orders:
+    get:
+      summary: Retrieve all purchased orders
+      tags:
+        - Admin
+      responses:
+        200:
+          description: A list of purchased orders.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        orderTotal:
+                          type: number
+                          example: 60
+                        paidAmount:
+                          type: number
+                          example: 60
+                        discountAmount:
+                          type: number
+                          example: 0
+                        discountCode:
+                          type: string
+                          nullable: true
+                          example: null
+                        items:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              productId:
+                                type: integer
+                                example: 2
+                              quantity:
+                                type: integer
+                                example: 3
+                              price:
+                                type: number
+                                example: 20
+        400:
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: Bad request.
+
+  /api/admin/metrics:
+    get:
+      summary: Retrieve sales metrics and discount code usage
+      tags:
+        - Admin
+      responses:
+        200:
+          description: Sales metrics and discount code usage details.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  data:
+                    type: object
+                    properties:
+                      totalItemsPurchased:
+                        type: integer
+                        example: 2
+                      totalPurchaseAmount:
+                        type: number
+                        example: 90
+                      totalDiscountAmount:
+                        type: number
+                        example: 3
+                      discountCodesUsed:
+                        type: array
+                        items:
+                          type: string
+                          example: "DUMMY100"
+                      discountCodesAvailable:
+                        type: array
+                        items:
+                          type: string
+                          example: "DISCOUNT10"
+        400:
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: Bad request.
+
+  /api/admin/discountCode:
+    post:
+      summary: Create a new discount code
+      tags:
+        - Admin
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - code
+                - type
+                - amount
+              properties:
+                code:
+                  type: string
+                  example: "NEWCODE10"
+                type:
+                  type: string
+                  enum: ["percentage", "fixed"]
+                  example: "percentage"
+                amount:
+                  type: number
+                  example: 10
+      responses:
+        200:
+          description: Discount code successfully created.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  data:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        example: "NEWCODE10"
+                      type:
+                        type: string
+                        example: "percentage"
+                      amount:
+                        type: number
+                        example: 10
+        400:
+          description: Validation error or discount code already exists.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: "This discount code is already added."
+  /api/cart:
+    get:
+      summary: Retrieve items in the cart
+      tags:
+        - Cart
+      responses:
+        200:
+          description: A list of items in the cart.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        productId:
+                          type: integer
+                          example: 1
+                        quantity:
+                          type: integer
+                          example: 2
+                        price:
+                          type: number
+                          format: float
+                          example: 10.0
+        400:
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: Bad request.
+
+    post:
+      summary: Add an item to the cart
+      tags:
+        - Cart
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - productId
+                - quantity
+              properties:
+                productId:
+                  type: integer
+                  example: 1
+                quantity:
+                  type: integer
+                  minimum: 1
+                  example: 2
+      responses:
+        200:
+          description: Item successfully added to the cart.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        productId:
+                          type: integer
+                          example: 1
+                        quantity:
+                          type: integer
+                          example: 2
+                        price:
+                          type: number
+                          format: float
+                          example: 10.0
+        400:
+          description: Validation error or invalid product ID.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: "Invalid product id."
+
+  /api/cart/checkout:
+    post:
+      summary: Checkout the cart
+      tags:
+        - Cart
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                code:
+                  type: string
+                  example: "DISCOUNT10"
+      responses:
+        200:
+          description: Cart successfully checked out.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        orderTotal:
+                          type: number
+                          format: float
+                          example: 400.0
+                        paidAmount:
+                          type: number
+                          format: float
+                          example: 360.0
+                        discountAmount:
+                          type: number
+                          format: float
+                          example: 40.0
+                        discountCode:
+                          type: string
+                          example: "DISCOUNT10"
+                        items:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              productId:
+                                type: integer
+                                example: 1
+                              quantity:
+                                type: integer
+                                example: 2
+                              price:
+                                type: number
+                                format: float
+                                example: 100.0
+        400:
+          description: Error during checkout, such as an empty cart or invalid discount code.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: "Cart is empty."
+
+  /api/cart/discountCodes:
+    get:
+      summary: Retrieve available discount codes
+      tags:
+        - Cart
+      responses:
+        200:
+          description: A list of available discount codes.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  data:
+                    type: array
+                    items:
+                      type: string
+                      example: "DISCOUNT10"
+        400:
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: Bad request.

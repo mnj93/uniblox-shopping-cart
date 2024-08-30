@@ -19,10 +19,11 @@ export const validateDiscountCode = (code: string) => {
 
 // Determines if the next order is eligible for a discount based on the order count
 export const checkEligibility = () => {
+    console.log(DISCOUNT_ORDER_COUNT);
     const nthOrder = DISCOUNT_ORDER_COUNT;
     const totalProcessedOrders = PURCHASED_ORDERS.length;
     console.log("nthOrder : ", nthOrder);
-    console.log("totalProcessedOrders : ", totalProcessedOrders);
+    console.log("totalProcessedOrders :", totalProcessedOrders);
     const isEligibleOrder = (totalProcessedOrders + 1) % nthOrder == 0;
     return isEligibleOrder;
 };
