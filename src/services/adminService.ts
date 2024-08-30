@@ -31,7 +31,7 @@ const generateDiscountCodes = (data: GenerateCodeInput) => {
         throw new Error("This discount code is already added.");
 
     DISCOUNT_CODES[data.code] = { type: data.type, amount: data.amount };
-    console.log(DISCOUNT_CODES);
+    // console.log(DISCOUNT_CODES);
     return DISCOUNT_CODES;
 };
 
