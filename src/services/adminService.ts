@@ -2,6 +2,7 @@ import { PURCHASED_ORDERS, DISCOUNT_CODES } from "../constants/inMemoryDb";
 import { GenerateCodeInput } from "../schemas/adminSchema";
 
 const fetchAdminData = () => {
+    console.log("DISCOUNT_CODES :", DISCOUNT_CODES);
     let totalItemsPurchased = 0; // considering unique product purchase for each checkout
     let totalPurchaseAmount = 0; // total sales volume including discount amount
     let totalDiscountAmount = 0; // total discount amount given to user
